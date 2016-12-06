@@ -18,6 +18,8 @@
 !/tmp/.keep
 .idea/
 .DS_Store
+/messages/log
+/messages/tmp
 
 # Ignore Byebug command history file.
 .byebug_history
