@@ -1,8 +1,8 @@
-.controller('MainCtrl', [
-    '$scope',
-    function($scope){
-        $scope.thing = 'Hello world!';
-    }]);
+function MainCtrl($scope) {
+      $scope.thing = 'Hello world!';
+    }
+
+MainCtrl.$inject = ['$scope'];
 
 angular
     .module('myApp')
