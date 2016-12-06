@@ -7,13 +7,13 @@ angular.module('myApp', ['ui.router', 'templates'])
             $stateProvider
                 .state('home', {
                     url: '/home',
-                    templateUrl: '/home.html',
+                    templateUrl: 'home/_home.html',
                     controller: 'MainCtrl'
                 })
                 .state('user', {
                 url: '/user',
-                templateUrl: '/posts.html',
-                controller: 'PostsCtrl'
+                templateUrl: 'user/_user.html',
+                controller: 'MainCtrl'
             });
 
             $urlRouterProvider.otherwise('home');
