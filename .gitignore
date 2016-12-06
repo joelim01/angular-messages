@@ -20,6 +20,8 @@
 .DS_Store
 /messages/log
 /messages/tmp
+/messages/test
+
 
 # Ignore Byebug command history file.
 .byebug_history
