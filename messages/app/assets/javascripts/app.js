@@ -25,22 +25,22 @@ angular.module('myApp', ['ui.router', 'templates', 'Devise'])
                     }]
                 })
                 .state('user.inbox', {
-                    url: '/user/inbox',
+                    url: '/inbox',
                     templateUrl: 'user/_inbox.html',
                     controller: 'UserCtrl as vm'
                 })
                 .state('user.compose', {
-                    url: '/user/compose',
+                    url: '/compose',
                     templateUrl: 'user/_compose.html',
                     controller: 'UserCtrl as vm'
                 })
                 .state('user.outbox', {
-                    url: '/user/outbox',
+                    url: '/outbox',
                     templateUrl: 'user/_outbox.html',
                     controller: 'UserCtrl as vm'
                 })
                 .state('user.sent', {
-                    url: '/user/sent',
+                    url: '/sent',
                     templateUrl: 'user/_sent.html',
                     controller: 'UserCtrl as vm'
                 })
