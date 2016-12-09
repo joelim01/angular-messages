@@ -23,6 +23,7 @@ gem 'devise'
 gem 'angular-rails-templates'
 # Use angular_rails_csrf to simplify CSRF cookie workarounds
 gem 'angular_rails_csrf'
+gem 'rb-readline'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
