@@ -13,8 +13,6 @@ var AuthCtrl = function($scope, $state, Auth) {
             $state.go('user');
         });
     };
-
-
 };
 
 AuthCtrl.$inject = ['$scope', '$state', 'Auth'];

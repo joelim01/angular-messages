@@ -1,0 +1,45 @@
+Compose!
+<div ng-controller="MessageCtrl as MC">
+  <form ng-submit="MC.submit()">
+    <div class="checkbox">
+      <label><input type="checkbox" value="" ng-model="MC.message.self" name="self">Note to Self?</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" value="" ng-model="MC.message.public" name="public">Public?</label>
+    </div>
+    <label>Deliver:</label>
+
+<!-- This is the date picker below -->
+
+  <div class="row" ng-controller="DatepickerCtrl">
+    <div class="col-md-6">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dt2" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+  </div>
+
+<!-- This is the date picker above -->
+
+    <div class="checkbox">
+      <label><input type="checkbox" value="" ng-model="MC.message.group" name="group">Deliver as Group?</label>
+    </div><br>
+    <label>Subject</label>
+      <input type="textarea" name="subject" ng-model="MC.message.subject" value=""></input><br>
+    <label>Message</label>
+      <input type="textarea" name="message" ng-model="MC.message.message" value=""></input><br>
+    <input type="submit">
+  </form>
+</div>
