@@ -1,9 +1,8 @@
-var UserCtrl = function($rootScope, Auth) {
-  var vm = this;
+var UserCtrl = function($rootScope, $scope, Auth ) {
 
 }
 
-NavCtrl.$inject = ['$rootScope', 'Auth'];
+UserCtrl.$inject = ['$rootScope', '$scope', 'Auth'];
 
 angular.module('myApp')
     .controller('UserCtrl', UserCtrl)

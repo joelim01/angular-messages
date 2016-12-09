@@ -2,4 +2,9 @@
 //= require angular-devise
 //= require angular-rails-templates
 //= require angular-ui-router
+//= require angular-animate
+//= require jquery
+//= require bootstrap
+//= require moment
+//= require angular-bootstrap
 //= require_tree .
