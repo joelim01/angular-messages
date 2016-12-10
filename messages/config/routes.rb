@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: 'application#angular'
 
   scope 'api' do
-    resources :messages, only: [:index]
+    resources :messages, only: [:index, :show]
     resources :user, only: [] do
       resources :messages, only: [:index, :create, :update, :destroy]
     end
