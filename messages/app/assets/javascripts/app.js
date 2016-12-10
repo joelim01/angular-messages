@@ -10,13 +10,13 @@ angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bo
                     templateUrl: 'home/_home.html',
                     controller: 'MainCtrl'
                 })
-                .state('user', {
-                    url: '/user',
-                    templateUrl: 'user/_user.html',
-                    controller: 'UserCtrl as vm',
+                .state('messages', {
+                    url: '/messages',
+                    templateUrl: 'messages/_messageNav.html',
+                    controller: 'MessageCtrl as vm',
                     onEnter: ['$state', 'Auth', function($state, Auth) {
                         Auth.currentUser().then(function () {
-                            $state.go('user')},
+                            $state.go($state.current.name)},
                             function (error) {
                               console.log(error)
                               $state.go('home')
@@ -24,25 +24,25 @@ angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bo
                         )
                     }]
                 })
-                .state('user.inbox', {
+                .state('messages.inbox', {
                     url: '/inbox',
-                    templateUrl: 'user/_inbox.html',
-                    controller: 'UserCtrl as vm'
+                    templateUrl: 'messages/_inbox.html',
+                    controller: 'MessageCtrl as vm'
                 })
-                .state('user.compose', {
+                .state('messages.compose', {
                     url: '/compose',
-                    templateUrl: 'user/_compose.html',
-                    controller: 'UserCtrl as vm'
+                    templateUrl: 'messages/_compose.html',
+                    controller: 'MessageCtrl as vm'
                 })
-                .state('user.outbox', {
+                .state('messages.outbox', {
                     url: '/outbox',
-                    templateUrl: 'user/_outbox.html',
-                    controller: 'UserCtrl as vm'
+                    templateUrl: 'messages/_outbox.html',
+                    controller: 'MessageCtrl as vm'
                 })
-                .state('user.sent', {
+                .state('messages.sent', {
                     url: '/sent',
-                    templateUrl: 'user/_sent.html',
-                    controller: 'UserCtrl as vm'
+                    templateUrl: 'messages/_sent.html',
+                    controller: 'MessageCtrl as vm'
                 })
                 .state('login', {
                     url: '/login',

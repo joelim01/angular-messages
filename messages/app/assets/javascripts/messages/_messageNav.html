@@ -1,0 +1,18 @@
+Welcome, {{currentUser.username}}! <br>
+
+<ul>
+  <li ui-sref-active="active" class="item">
+    <a ui-sref="messages.compose">Compose</a>
+  </li>
+  <li ui-sref-active="active" class="item">
+    <a ui-sref="messages.inbox">Inbox</a>
+  </li>
+  <li ui-sref-active="active" class="item">
+    <a ui-sref="messages.outbox">Outbox</a>
+  </li>
+  <li ui-sref-active="active" class="item">
+    <a ui-sref="messages.sent">Sent</a>
+  </li>
+</ul>
+
+<ui-view/>

@@ -5,7 +5,7 @@ Compose!
       <label><input type="checkbox" value="" ng-model="MC.message.self" name="self">Note to Self?</label>
     </div>
     <div class="checkbox">
-      <label><input type="checkbox" value="" ng-model="MC.message.public" name="public">Public?</label>
+      <label><input type="checkbox" value="" ng-model="MC.message.private" name="public">Public?</label>
     </div>
     <label>Deliver:</label>
 
@@ -34,12 +34,12 @@ Compose!
 <!-- This is the date picker above -->
 
     <div class="checkbox">
-      <label><input type="checkbox" value="" ng-model="MC.message.group" name="group">Deliver as Group?</label>
+      <label><input type="checkbox" value="" ng-model="MC.message.send_as_group" name="group">Deliver as Group?</label>
     </div><br>
     <label>Subject</label>
       <input type="textarea" name="subject" ng-model="MC.message.subject" value=""></input><br>
     <label>Message</label>
-      <input type="textarea" name="message" ng-model="MC.message.message" value=""></input><br>
+      <input type="textarea" name="message" ng-model="MC.message.content" value=""></input><br>
     <input type="submit">
   </form>
 </div>
