@@ -7,6 +7,9 @@ Compose!
     <div class="checkbox">
       <label><input type="checkbox" value="" ng-model="MC.message.private" name="public">Public?</label>
     </div>
+    <tags-input ng-model="MC.message.to" add-on-paste="true">
+      <auto-complete source="MC.loadUsers($query)"></auto-complete>
+    </tags-input>
     <label>Deliver:</label>
 
 <!-- This is the date picker below -->

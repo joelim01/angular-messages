@@ -1,4 +1,4 @@
-angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bootstrap'])
+angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bootstrap', 'ngTagsInput'])
     .config([
         '$stateProvider',
         '$urlRouterProvider',
@@ -50,7 +50,7 @@ angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bo
                     controller: 'AuthCtrl as vm',
                     onEnter: ['$state', 'Auth', function($state, Auth) {
                         Auth.currentUser().then(function (){
-                            $state.go('home');
+                            $state.go('messages');
                         })
                     }]
                 })
@@ -60,7 +60,7 @@ angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bo
                     controller: 'AuthCtrl as vm',
                     onEnter: ['$state', 'Auth', function($state, Auth) {
                         Auth.currentUser().then(function (){
-                            $state.go('home');
+                            $state.go('messages');
                         })
                     }]
                 });

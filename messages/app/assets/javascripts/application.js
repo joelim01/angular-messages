@@ -7,4 +7,5 @@
 //= require bootstrap
 //= require moment
 //= require angular-bootstrap
+//= require ng-tags-input
 //= require_tree .

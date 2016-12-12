@@ -1,7 +1,8 @@
-var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerService) {
+var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerService, $http) {
   var MC = this;
 
   MC.message = {
+    to: [{text: "tester1"}],
     self: false,
     private: false,
     send_as_group: false,
