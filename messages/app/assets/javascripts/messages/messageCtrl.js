@@ -10,6 +10,10 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
     content: ""
                 };
 
+  MC.loadUsers = function(query) {
+    return $http.get('/api/user?query=' + query)
+  }
+
   MC.submit = function() {
     Object.assign(MC.message, datepickerService.getDates())
     var data = {message: MC.message}
@@ -17,7 +21,7 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
   }
 }
 
-MessageCtrl.$inject = ['$rootScope', '$state', 'MessageService', '$log', 'datepickerService'];
+MessageCtrl.$inject = ['$rootScope', '$state', 'MessageService', '$log', 'datepickerService', '$http'];
 
 angular.module('myApp')
     .controller('MessageCtrl', MessageCtrl);

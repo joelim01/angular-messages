@@ -1,5 +1,5 @@
 var NavCtrl = function($rootScope, Auth) {
-  var vm = this;
+
 
 }
 
