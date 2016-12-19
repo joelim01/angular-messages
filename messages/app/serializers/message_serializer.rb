@@ -1,5 +1,5 @@
 class MessageSerializer < ActiveModel::Serializer
-  attributes(:subject, :content)
+  attributes(:id, :subject, :content, :sent_on)
   has_one :sender, serializer: SenderSerializer
-
+  has_many :recipients, serializer: RecipientSerializer
 end

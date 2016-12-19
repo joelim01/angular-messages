@@ -9,10 +9,11 @@ class MessagesController < ActionController::Base
       messages = Message.all
       render json: messages
     else
-      messages = Message.joins(:message_recipients).where(message_recipients: {recipient_id:params[:user_id]}).where(sent_on: 1.year.ago..Time.current)
-      render json: messages, include: 'sender'
+      messages = Message.joins(:message_recipients).joins(:message_sender).where("sender_id = :sender or recipient_id= :recipient", {sender: params[:user_id], recipient: params[:user_id]})
+      render json: messages
     end
   end
+
 
   def show
     message = Message.find(params[:id])
