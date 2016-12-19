@@ -1,1 +1,4 @@
-SENT!
+sent<br>
+<div data-ng-repeat="message in MC.messages | filter: { sent_on: '' } | filter: { sender: { id: currentUser.id } }:true">
+  {{message}}
+</div>

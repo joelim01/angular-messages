@@ -10,7 +10,7 @@ function MessageService($rootScope, $http, Auth) {
     content: ""
   };
 
-  MS.inboxMessages = [];
+  MS.messages = [];
 
   this.submit = function(message, user) {
     var path = "/api/user/" + user.id + "/messages"
@@ -21,15 +21,16 @@ function MessageService($rootScope, $http, Auth) {
     }
   )};
 
+
   this.getUsers = function(query) {
     return $http.get('/api/user/autocomplete?query=' + query)
   }
 
   this.getMessages = function() {
     return Auth.currentUser().then(function(user) {
-      var path = "/api/user/" + user.id + "/messages"
+      var path = '/api/user/' + user.id + '/messages'
       return $http.get(path).then(function(response){
-        angular.copy(response.data, MS.inboxMessages);
+        angular.copy(response.data, MS.messages);
       })
     })
   }

@@ -5,7 +5,7 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
   MC.message = MessageService.newMessage;
   MC.getUsers = MessageService.getUsers;
   MC.submitMessage = submitMessage;
-  MC.inboxMessages = MessageService.inboxMessages;
+  MC.messages = MessageService.messages;
 
   function submitMessage() {
     Object.assign(MC.message, datepickerService.getDates())

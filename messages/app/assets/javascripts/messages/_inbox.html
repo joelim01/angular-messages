@@ -1,1 +1,9 @@
-InBoX!
+<div>
+  received<br>
+  <div data-ng-repeat="message in MC.messages | filter: { recipients: { id: currentUser.id } }">
+    {{message}}
+  </div>
+</div>
+
+
+...
