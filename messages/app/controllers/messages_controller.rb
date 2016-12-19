@@ -1,4 +1,5 @@
 class MessagesController < ActionController::Base
+  include ScheduleSending
   protect_from_forgery with: :exception
   before_filter :authenticate_user!, only: [:create]
 
@@ -8,8 +9,8 @@ class MessagesController < ActionController::Base
       messages = Message.all
       render json: messages
     else
-      messages = Message.joins(:message_recipients).where(message_recipients: {recipient_id:params[:user_id]})
-      render json: messages
+      messages = Message.joins(:message_recipients).where(message_recipients: {recipient_id:params[:user_id]}).where(sent_on: 1.year.ago..Time.current)
+      render json: messages, include: 'sender'
     end
   end
 
@@ -28,6 +29,7 @@ class MessagesController < ActionController::Base
     else
       message.recipients << User.where(["username = ?", formattedRecipients])
     end
+    message.scheduled_send_date = ScheduleSending.call(params[:message][:dt], params[:message][:dt2])
     if message.save
       render json: message
     else
@@ -46,6 +48,7 @@ class MessagesController < ActionController::Base
       else
         message.recipients << User.where(["username = ?", formattedRecipients])
       end
+      message.scheduled_send_date = ScheduleSending.call(params[:message][:dt], params[:message][:dt2])
       if message.save
         render json: message
       else
