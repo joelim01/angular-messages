@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   scope 'api' do
     resources :messages, only: [:index, :show]
-    resources :user, only: [:index] do
+    get 'user/autocomplete', to: 'user#autocomplete'
+    resources :user, only: [] do
       resources :messages, only: [:index, :create, :update, :destroy]
     end
   end
