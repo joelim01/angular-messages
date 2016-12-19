@@ -2,8 +2,8 @@ class UserController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
-  def index
-    users = User.search("test", {
+  def autocomplete
+    users = User.search(params[:query], {
       fields: ["username"],
       match: :word_start,
       limit: 10,
