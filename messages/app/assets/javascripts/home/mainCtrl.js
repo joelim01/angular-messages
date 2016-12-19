@@ -1,4 +1,4 @@
-var MainCtrl = function($rootScope, $state, Auth) {
+var MainCtrl = function($rootScope, $state, Auth, MessageService) {
   $rootScope.signedIn = Auth.isAuthenticated;
   $rootScope.logout = Auth.logout;
 
@@ -21,7 +21,7 @@ var MainCtrl = function($rootScope, $state, Auth) {
 
 }
 
-MainCtrl.$inject = ['$rootScope', '$state', 'Auth'];
+MainCtrl.$inject = ['$rootScope', '$state', 'Auth', 'MessageService'];
 
 angular
     .module('myApp')
