@@ -13,7 +13,6 @@ angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bo
                 .state('messages', {
                     url: '/messages',
                     templateUrl: 'messages/_messageNav.html',
-                    controller: 'MessageCtrl as vm',
                     onEnter: ['$state', 'Auth', function($state, Auth) {
                         Auth.currentUser().then(function () {
                             $state.go($state.current.name)},
@@ -27,22 +26,18 @@ angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bo
                 .state('messages.inbox', {
                     url: '/inbox',
                     templateUrl: 'messages/_inbox.html',
-                    controller: 'MessageCtrl as vm'
                 })
                 .state('messages.compose', {
                     url: '/compose',
                     templateUrl: 'messages/_compose.html',
-                    controller: 'MessageCtrl as vm'
                 })
                 .state('messages.outbox', {
                     url: '/outbox',
                     templateUrl: 'messages/_outbox.html',
-                    controller: 'MessageCtrl as vm'
                 })
                 .state('messages.sent', {
                     url: '/sent',
                     templateUrl: 'messages/_sent.html',
-                    controller: 'MessageCtrl as vm'
                 })
                 .state('login', {
                     url: '/login',
