@@ -1,6 +1,6 @@
 Compose!
-<div ng-controller="MessageCtrl as MC">
-  <form ng-submit="MC.submit()">
+<div>
+  <form ng-submit="MC.submitMessage()">
     <div class="checkbox">
       <label><input type="checkbox" value="" ng-model="MC.message.self" name="self">Note to Self?</label>
     </div>
@@ -8,7 +8,7 @@ Compose!
       <label><input type="checkbox" value="" ng-model="MC.message.private" name="public">Public?</label>
     </div>
     <tags-input ng-model="MC.message.to" add-on-paste="true">
-      <auto-complete source="MC.loadUsers($query)"></auto-complete>
+      <auto-complete source="MC.getUsers($query)"></auto-complete>
     </tags-input>
     <label>Deliver:</label>
 
@@ -45,4 +45,5 @@ Compose!
       <input type="textarea" name="message" ng-model="MC.message.content" value=""></input><br>
     <input type="submit">
   </form>
+
 </div>
