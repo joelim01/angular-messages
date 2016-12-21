@@ -1,26 +1,30 @@
-function MessageService($rootScope, $http, Auth) {
+function MessageService($rootScope, $http, Auth, Flash) {
   var MS = this;
 
   this.newMessage = {
-    to: [{text: "tester1"}],
-    self: false,
-    private: false,
-    send_as_group: false,
-    subject: "",
-    content: ""
+      to: [],
+      self: false,
+      private: false,
+      send_as_group: false,
+      subject: "",
+      content: ""
   };
 
   MS.messages = [];
 
-  this.submit = function(message, user) {
+  MS.submit = function(message, user) {
     var path = "/api/user/" + user.id + "/messages"
-    $http.post(path, message).then(function() {
+     return $http.post(path, message)
+            .then(submitMessageComplete)
+            .catch(submitMessageFailed);
 
-    }, function () {
-
-    }
-  )};
-
+      function submitMessageComplete(response) {
+          return response;
+      }
+      function submitMessageFailed(error) {
+          Flash.create('alert', 'XHR Failed for submit.' + error.data);
+      }
+  }
 
   this.getUsers = function(query) {
     return $http.get('/api/user/autocomplete?query=' + query)
@@ -36,7 +40,7 @@ function MessageService($rootScope, $http, Auth) {
   }
 }
 
-MessageService.$inject = ['$rootScope', '$http', 'Auth'];
+MessageService.$inject = ['$rootScope', '$http', 'Auth', 'Flash'];
 
 angular
   .module("myApp")
