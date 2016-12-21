@@ -7,5 +7,7 @@
 //= require bootstrap
 //= require moment
 //= require angular-bootstrap
+//= require angular-messages
 //= require ng-tags-input
+//= require angular-flash-alert
 //= require_tree .
