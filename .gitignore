@@ -21,6 +21,7 @@
 /messages/log
 /messages/tmp
 /messages/test
+/messages/vendor
 
 
 # Ignore Byebug command history file.
