@@ -1,9 +1,13 @@
-<div>
-  received<br>
-  <div data-ng-repeat="message in MC.messages | filter: { recipients: { id: currentUser.id } }">
-    {{message}}
+<uib-accordion close-others="true">
+  <div uib-accordion-group class="panel-default" is-open="status.isMessageOpen" template-url="assets/components/inbox.html" data-ng-repeat="message in MC.messages | filter: { recipients: { id: currentUser.id } }">
+    <uib-accordion-heading>
+      {{message.sender.username}} - {{message.subject}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isMessageOpen, 'glyphicon-chevron-right': !status.isMessageOpen}"></i>
+    </uib-accordion-heading>
+      {{message.content}}
+    <br>
+    <div class="btn-group pull-right" role="group" aria-label="...">
+      <button type="button" class="btn btn-default">Reply</button>
+      <button type="button" class="btn btn-default">Delete</button>
+    </div>
   </div>
-</div>
-
-
-...
+</uib-accordion>
