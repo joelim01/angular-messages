@@ -2,15 +2,14 @@ var AuthCtrl = function($scope, $state, Auth) {
   var vm = this;
 
     vm.login = function() {
-      console.log(vm.user)
         Auth.login(vm.user).then(function(){
-            $state.go('user');
+            $state.go('messages');
         });
     };
 
     vm.register = function() {
         Auth.register(vm.user).then(function(){
-            $state.go('user');
+            $state.go('messages');
         });
     };
 };
