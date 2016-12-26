@@ -7,12 +7,27 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
   MC.submitMessage = submitMessage;
   MC.messages = MessageService.messages;
   MC.sentMsg = "Message sent!";
+  MC.read = MessageService.read;
+  MC.deleteFromInbox = deleteInboxMessage;
+
+  function deleteInboxMessage(message) {
+    MessageService.destroy(message, $rootScope.currentUser, "inbox").then(function () {
+      mArray = [message]
+      MC.messages = $(MC.messages).not(mArray).get();
+    })
+  }
+
+  function deleteOutboxMessage(message) {
+    MessageService.destroy(message, $rootScope.currentUser, "outbox").then(function () {
+      mArray = [message]
+      MC.messages = $(MC.messages).not(mArray).get();
+    })
+  }
 
   function submitMessage(form) {
     addDateToMessage();
-    if (validateDates()) {
-      var data = {message: MC.message}
-      MessageService.submit(data, $rootScope.currentUser).then(function() {
+    if (validateDates(form)) {
+      MessageService.create(MC.message, $rootScope.currentUser).then(function() {
         Flash.create('success', ("The message will be sent between " + $filter('date')(data.message.dt, "dd/MM/yyyy") + " and " + $filter('date')(data.message.dt2, "dd/MM/yyyy")+"."));
         resetForm();
       }).catch(function() {
@@ -25,12 +40,17 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
     Object.assign(MC.message, datepickerService.getDates())
   }
 
-  function validateDates() {
+  function validateDates(form) {
+    var valid = true;
     if (MC.message.dt > MC.message.dt2) {
-      form.$error.dateError = true;
-      return false;
+      form.$error.datePeriodError = true;
+      valid = false;
     }
-    return true;
+    if  (MC.message.dt < new Date()) {
+      form.$error.dateStartError = true;
+      valid = false;
+    }
+    return valid;
   }
 
   function resetForm() {
