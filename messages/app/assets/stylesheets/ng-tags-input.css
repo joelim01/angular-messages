@@ -8,8 +8,8 @@ tags-input *, tags-input *:before, tags-input *:after {
 }
 tags-input .host {
   position: relative;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 0px;
+  margin-bottom: 10px;
   height: 100%;
 }
 tags-input .host:active {
