@@ -39,7 +39,7 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
     Flash.create('success', MC.sentMsg);
     MC.message = angular.copy(MessageService.newMessage);
   }
-  
+
 };
 
 
