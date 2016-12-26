@@ -1,4 +1,4 @@
-angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bootstrap', 'ngTagsInput', 'ngMessages', 'ngFlash'])
+angular.module('myApp', ['ui.router', 'templates', 'Devise', 'ngAnimate', 'ui.bootstrap', 'ngTagsInput', 'ngMessages', 'ngFlash', 'angularUtils.directives.dirPagination'])
     .config([
         '$stateProvider',
         '$urlRouterProvider',

@@ -10,4 +10,5 @@
 //= require angular-messages
 //= require ng-tags-input
 //= require angular-flash-alert
+//= require angularUtils-pagination
 //= require_tree .
