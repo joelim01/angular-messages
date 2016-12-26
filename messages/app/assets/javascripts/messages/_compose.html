@@ -6,17 +6,28 @@
 
   <form name="composeEditForm" ng-submit="MC.submitMessage(composeEditForm)">
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="" ng-model="MC.message.self" name="self">Note to Self?</label>
+    <label class="checkbox-inline">
+      <input type="checkbox" value="" ng-model="MC.message.self" name="self">Note to Self?
+    </label>
+
+    <label class="checkbox-inline">
+      <input type="checkbox" value="" ng-model="MC.message.private" name="public">Public?
+    </label>
+
+    <label class="checkbox-inline">
+      <input type="checkbox" value="" ng-model="MC.message.send_as_group" name="group">Deliver as Group?
+    </label>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <label>To:</label>
+          <tags-input name="recipients" add-from-autocomplete-only="true" min-tags="1" ng-model="MC.message.to" add-on-paste="true">
+            <auto-complete source="MC.getUsers($query)"></auto-complete>
+          </tags-input>
+        </div>
     </div>
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="" ng-model="MC.message.private" name="public">Public?</label>
-    </div>
-
-    <tags-input name="recipients" add-from-autocomplete-only="true" min-tags="1" ng-model="MC.message.to" add-on-paste="true">
-      <auto-complete source="MC.getUsers($query)"></auto-complete>
-    </tags-input>
 
      <div ng-messages="composeEditForm.recipients.$error" ng-show="composeEditForm.recipients.$touched">
        <div ng-message="minTags" class="alert alert-danger">You need to provide at least one recipient</div>
@@ -47,19 +58,17 @@
   </div>
 
   <div ng-messages="composeEditForm.$error" multiple>
-    <div ng-message="dateError" class="alert alert-danger">The beginning of your sending period must be before the end.</div>
+    <div ng-message="datePeriodError" class="alert alert-danger">The beginning of your sending period must be before the end.</div>
+    <div ng-message="dateStartError" class="alert alert-danger">The date cannot be before today.</div>
   </div>
 
 <!-- This is the date picker above -->
 
-    <div class="checkbox">
-      <label><input type="checkbox" value="" ng-model="MC.message.send_as_group" name="group">Deliver as Group?</label>
-    </div><br>
     <label>Subject</label>
-      <input type="textarea" name="subject" ng-model="MC.message.subject" value=""></input><br>
+      <input class="form-control" type="text" name="subject" ng-model="MC.message.subject" value=""></input><br>
     <label>Message</label>
-      <input type="textarea" name="message" ng-model="MC.message.content" value=""></input><br>
-    <input type="submit">
+      <textarea class="form-control" rows="3" name="message" ng-model="MC.message.content" value=""></textarea><br>
+    <input class="form-control" type="submit">
   </form>
 
 </div>
