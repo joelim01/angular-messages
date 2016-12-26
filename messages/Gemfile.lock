@@ -53,6 +53,7 @@ GEM
     bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.6)
+    coderay (1.1.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
     devise (4.2.0)
@@ -106,6 +107,10 @@ GEM
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     pg (0.19.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     puma (3.6.2)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -151,6 +156,7 @@ GEM
       activemodel
       elasticsearch (>= 1)
       hashie
+    slop (3.6.0)
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -193,6 +199,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   listen (~> 3.0.5)
   pg
+  pry
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   rb-readline
