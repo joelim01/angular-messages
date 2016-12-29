@@ -1,4 +1,4 @@
-var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerService, $http, Flash, $filter) {
+var MessageCtrl = function($rootScope, $state, MessageService, $log, datepickerService, $http, Flash, $filter) {
   var MC = this;
 
   MessageService.getMessages();
@@ -6,9 +6,21 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
   MC.getUsers = MessageService.getUsers;
   MC.submitMessage = submitMessage;
   MC.messages = MessageService.messages;
-  MC.sentMsg = "Message sent!";
   MC.read = MessageService.read;
   MC.deleteFromInbox = deleteInboxMessage;
+  MC.unread = unread;
+  MC.filterUnread = false;
+
+
+  function unread() {
+    return function(message) {
+      if (MC.filterUnread == true) {
+        return message.message_recipients[0].read == false
+      } else {
+        return true
+      }
+    }
+  }
 
   function deleteInboxMessage(message) {
     MessageService.destroy(message, $rootScope.currentUser, "inbox").then(function () {
@@ -27,12 +39,15 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
   function submitMessage(form) {
     addDateToMessage();
     if (validateDates(form)) {
-      MessageService.create(MC.message, $rootScope.currentUser).then(function() {
-        Flash.create('success', ("The message will be sent between " + $filter('date')(data.message.dt, "dd/MM/yyyy") + " and " + $filter('date')(data.message.dt2, "dd/MM/yyyy")+"."));
-        resetForm();
-      }).catch(function() {
-        Flash.create('error', "There has been an error.");
-      })
+      (function (form) { MessageService.create(MC.message, $rootScope.currentUser).then(function(data) {
+          debugger
+          Flash.create('success', ("The message will be sent between " + $filter('date')(MC.message.dt, "dd/MM/yyyy") + " and " + $filter('date')(MC.message.dt2, "dd/MM/yyyy")+"."));
+          resetForm(form);
+        }).catch(function(response) {
+          Flash.create('error', "There has been an error.");
+          debugger
+        });
+      })(form);
     }
   };
 
@@ -53,10 +68,9 @@ var MessageCtrl = function($rootScope, state, MessageService, $log, datepickerSe
     return valid;
   }
 
-  function resetForm() {
+  function resetForm(form) {
     form.$setUntouched();
     form.$setPristine();
-    Flash.create('success', MC.sentMsg);
     MC.message = angular.copy(MessageService.newMessage);
   }
 

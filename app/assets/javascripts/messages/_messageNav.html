@@ -2,18 +2,19 @@
 
   <ul class="nav nav-pills">
     <li ui-sref-active="active" class="item">
-      <a ui-sref="messages.compose">Compose</a>
+      <a class="compose" ui-sref="messages.compose">Compose</a>
     </li>
     <li ui-sref-active="active" class="item">
-      <a ui-sref="messages.inbox">Inbox</a>
+      <a class="inbox" ui-sref="messages.inbox">Inbox</a>
     </li>
     <li ui-sref-active="active" class="item">
-      <a ui-sref="messages.outbox">Outbox</a>
+      <a class="outbox" ui-sref="messages.outbox">Outbox</a>
     </li>
-    <li ui-sref-active="active" class="item">
-      <a ui-sref="messages.sent">Sent</a>
+    <li ui-sref-active="active" class="item sent">
+      <a class="sent" ui-sref="messages.sent">Sent</a>
     </li>
   </ul>
-
-  <ui-view/>
+  <div style="padding-top:10px">
+    <ui-view/>
+  </div>
 </div>

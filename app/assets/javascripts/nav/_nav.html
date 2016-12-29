@@ -1,10 +1,19 @@
-<div class="collapse navbar-collapse pull-right" ng-controller="NavCtrl">
+<div ng-cloak class="collapse navbar-collapse pull-right" ng-controller="NavCtrl as vm">
+
     <ul class="nav navbar-nav">
-        <li ng-hide="signedIn()"><a href="#/home">Home</a></li>
-        <li ng-hide="signedIn()"><a href="#/login">Log In</a></li>
-        <li ng-hide="signedIn()"><a href="#/register">Register</a></li>
-        <li ng-show="signedIn()"><a href="#/messages">Messages</a></li>
-        <li ng-show="signedIn()"><a href="#/">{{ currentUser.username }}</a></li>
-        <li ng-show="signedIn()"><a ng-click="logout()">Log Out</a></li>
+        <li ng-hide="currentUser != null"><a ui-sref="home">Home</a></li>
+        <li ng-hide="currentUser != null"><a ui-sref="login">Log In</a></li>
+        <li ng-hide="currentUser != null"><a ui-sref="register">Register</a></li>
+        <!-- Simple dropdown -->
+        <li ng-hide="currentUser == null" uib-dropdown >
+          <a id="single-button" uib-dropdown-toggle ng-disabled="disabled">
+            {{ currentUser.username }} <span class="caret"></span>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="">{{currentUser.email}}</a></li>
+            <li class="divider"></li>
+           <li role="menuitem"><a href="" ng-click="logout()">Log Out</a></li>
+          </ul>
+        </li>
     </ul>
 </div>
