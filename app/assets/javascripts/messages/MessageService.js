@@ -32,6 +32,7 @@ function MessageService($rootScope, $http, Auth, Flash) {
     }
       function submitRequestFailed(error) {
         Flash.create('alert', 'XHR Failed for submit.' + error.data);
+        return error;
     }
   }
 
