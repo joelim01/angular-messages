@@ -1,24 +1,29 @@
-# README
+AngularMessages - Rails/Angular Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Flatiron Learn.co final project uses Rails to create a backend API that is consumed by an AngularJS front-end. The main idea of the app is re-capture some of the experience of sending a physical note or letter -- an anticipated but ultimately unknown exact delivery date, the inability to respond immediately -- in an electronic messaging service.
 
-Things you may want to cover:
+This project uses several off-the-shelf resources including Angular Bootstrap Components, Angular UI Router, Devise and SearchKick among others.
 
-* Ruby version
+Installation
 
-* System dependencies
+If you haven't yet, install Ruby and Bundler.
 
-* Configuration
+Then, run the following in your command line:
 
-* Database creation
+git clone https://github.com/joelim01/angular-messages
+cd angular-messages
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed
+bower install
 
-* Database initialization
+Then, run rails s to start up a local server and view the app at localhost:3000 in your browser.
 
-* How to run the test suite
+Contributor's Guide
 
-* Services (job queues, cache servers, search engines, etc.)
+Third party contributions are always welcome! To flag an issue, file a ticket on rails-angular-final-project, and provide a detailed explanation of the issue(s). Your feedback is very much appreciated.
 
-* Deployment instructions
+License
 
-* ...
+Copyright (c) 2016 Joseph Lim
