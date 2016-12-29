@@ -12,4 +12,7 @@ Rails.application.routes.draw do
       resources :messages, only: [:index, :create, :update, :destroy]
     end
   end
+
+  get '*path', to: 'application#angular'
+
 end

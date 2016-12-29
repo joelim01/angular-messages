@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :message_senders, :foreign_key => 'sender_id'
   has_many :message_recipients, :foreign_key => 'recipient_id'
   searchkick word_start: [:username, :email]
-  after_save :reindex_users
+  after_create :reindex_users
 
   private
 
