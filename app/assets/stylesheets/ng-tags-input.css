@@ -23,9 +23,9 @@ tags-input .tags {
   overflow: hidden;
   word-wrap: break-word;
   cursor: text;
-  background-color: #fff;
-  border: 1px solid darkgray;
-  box-shadow: 1px 1px 1px 0 lightgray inset;
+  background-color: #3A668A;
+  border: 1px solid #264259;
+
   height: 100%;
 }
 tags-input .tags.focused {
@@ -44,13 +44,16 @@ tags-input .tags .tag-item {
   padding: 0 5px;
   display: inline-block;
   float: left;
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  font: 14px;
   height: 26px;
   line-height: 25px;
-  border: 1px solid #acacac;
+  border: 1px solid #264259;
   border-radius: 3px;
+  background: #FFBA9E;
+/*
   background: -webkit-linear-gradient(top, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%);
-  background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%);
+  background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%);*/
 }
 tags-input .tags .tag-item.selected {
   background: -webkit-linear-gradient(top, #febbbb 0%, #fe9090 45%, #ff5c5c 100%);
@@ -62,9 +65,11 @@ tags-input .tags .tag-item .remove-button {
   border: none;
   background: none;
   cursor: pointer;
-  vertical-align: middle;
-  font: bold 16px Arial, sans-serif;
-  color: #585858;
+  vertical-align: top;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 200;
+  font-size: 16px;
+  color: #8F7368;
 }
 tags-input .tags .tag-item .remove-button:active {
   color: #ff0000;
@@ -76,8 +81,11 @@ tags-input .tags .input {
   padding: 0;
   padding-left: 5px;
   float: left;
+  background-color: #3A668A;
+  color: #dbedfc;
   height: 26px;
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  font: 14px;
 }
 tags-input .tags .input.invalid-tag {
   color: #ff0000;
@@ -86,9 +94,9 @@ tags-input .tags .input::-ms-clear {
   display: none;
 }
 tags-input.ng-invalid-min-tags.ng-touched .tags {
-  -webkit-box-shadow: 0 0 3px 1px rgba(255, 0, 0, 0.6);
+  /*-webkit-box-shadow: 0 0 3px 1px rgba(255, 0, 0, 0.6);
   -moz-box-shadow: 0 0 3px 1px rgba(255, 0, 0, 0.6);
-  box-shadow: 0 0 3px 1px rgba(255, 0, 0, 0.6);
+  box-shadow: 0 0 3px 1px rgba(255, 0, 0, 0.6);*/
 }
 tags-input[disabled] .host:focus {
   outline: none;
@@ -139,20 +147,22 @@ tags-input .autocomplete .suggestion-item {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
   color: #000;
   background-color: #fff;
 }
 tags-input .autocomplete .suggestion-item.selected {
   color: #fff;
-  background-color: #0097cf;
+  background-color: #FFCEBA;
 }
 tags-input .autocomplete .suggestion-item.selected em {
   color: #fff;
-  background-color: #0097cf;
+  background-color: #FFCEBA;
 }
 tags-input .autocomplete .suggestion-item em {
-  font: normal bold 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  font: normal 700 16px;
   color: #000;
   background-color: #fff;
 }
