@@ -15,7 +15,7 @@ var MainCtrl = function($rootScope, $state, Auth, MessageService) {
   });
 
   $rootScope.$on('devise:logout', function (e, user){
-      $rootScope.currentUser = {};
+      $rootScope.currentUser = null;
         $state.go('home');
   });
 
