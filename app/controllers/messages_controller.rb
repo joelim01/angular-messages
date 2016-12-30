@@ -68,6 +68,10 @@ class MessagesController < ActionController::Base
     end
   end
 
+  def destroy
+    Message.find(params[:id]).delete
+  end
+
   private
 
   def message_params
