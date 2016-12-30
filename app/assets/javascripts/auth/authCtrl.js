@@ -6,7 +6,6 @@ var AuthCtrl = function($scope, $state, Auth, Flash) {
           .then(function(){
             $state.go('messages.compose')})
           .catch(function(data) {
-            debugger
             Flash.create('alert', data.data.error);
           });
     };
@@ -16,7 +15,6 @@ var AuthCtrl = function($scope, $state, Auth, Flash) {
           .then(function(){
             $state.go('messages.compose')})
           .catch(function(data) {
-            debugger
             Flash.create('alert', data.data.error);
           });
     };
