@@ -13,16 +13,17 @@ Then, run the following in your command line:
 git clone https://github.com/joelim01/angular-messages
 cd angular-messages
 bundle install
+install postgres and create a new db user named angular-messages
+install elasticsearch
 rails db:create
 rails db:migrate
-rails db:seed
 bower install
 
 Then, run rails s to start up a local server and view the app at localhost:3000 in your browser.
 
 Contributor's Guide
 
-Third party contributions are always welcome! To flag an issue, file a ticket on rails-angular-final-project, and provide a detailed explanation of the issue(s). Your feedback is very much appreciated.
+Third party contributions are always welcome! To flag an issue, file a ticket on angular-messages, and provide a detailed explanation of the issue(s). Your feedback is very much appreciated.
 
 License
 
