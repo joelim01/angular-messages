@@ -1,16 +1,17 @@
-var MessageCtrl = function($rootScope, $state, MessageService, $log, datepickerService, $http, Flash, $filter) {
+var MessageCtrl = function($rootScope, $state, MessageService, $log, datepickerService, $http, Flash, $filter, MessageFormService) {
   var MC = this;
 
   MessageService.getMessages();
-  MC.message = angular.copy(MessageService.newMessage);
-  MC.getUsers = MessageService.getUsers;
-  MC.submitMessage = submitMessage;
-  MC.messages = MessageService.messages;
-  MC.read = MessageService.read;
   MC.deleteFromInbox = deleteInboxMessage;
-  MC.unread = unread;
+  MC.deleteFromOutbox = deleteOutboxMessage;
+  MC.getUsers = MessageService.getUsers;
   MC.filterUnread = false;
-
+  MC.message = angular.copy(MessageService.newMessage);
+  MC.messages = MessageService.messages;
+  MC.submitMessage = submitMessage;
+  MC.read = MessageService.read;
+  MC.unread = unread;
+  MC.validateDates = MessageFormService.validateDates
 
   function unread() {
     return function(message) {
@@ -38,14 +39,12 @@ var MessageCtrl = function($rootScope, $state, MessageService, $log, datepickerS
 
   function submitMessage(form) {
     addDateToMessage();
-    if (validateDates(form)) {
+    if (MC.validateDates(form, MC.message)) {
       (function (form) { MessageService.create(MC.message, $rootScope.currentUser).then(function(data) {
-          debugger
           Flash.create('success', ("The message will be sent between " + $filter('date')(MC.message.dt, "dd/MM/yyyy") + " and " + $filter('date')(MC.message.dt2, "dd/MM/yyyy")+"."));
           resetForm(form);
         }).catch(function(response) {
           Flash.create('error', "There has been an error.");
-          debugger
         });
       })(form);
     }
@@ -55,29 +54,19 @@ var MessageCtrl = function($rootScope, $state, MessageService, $log, datepickerS
     Object.assign(MC.message, datepickerService.getDates())
   }
 
-  function validateDates(form) {
-    var valid = true;
-    if (MC.message.dt > MC.message.dt2) {
-      form.$error.datePeriodError = true;
-      valid = false;
-    }
-    if  (MC.message.dt < new Date()) {
-      form.$error.dateStartError = true;
-      valid = false;
-    }
-    return valid;
+  function resetForm(form) {
+    MessageFormService.resetForm(form);
+    MC.message = angular.copy(MessageService.newMessage);
   }
 
-  function resetForm(form) {
-    form.$setUntouched();
-    form.$setPristine();
+  function resetMessage() {
     MC.message = angular.copy(MessageService.newMessage);
   }
 
 };
 
 
-MessageCtrl.$inject = ['$rootScope', '$state', 'MessageService', '$log', 'datepickerService', '$http', 'Flash', '$filter'];
+MessageCtrl.$inject = ['$rootScope', '$state', 'MessageService', '$log', 'datepickerService', '$http', 'Flash', '$filter', 'MessageFormService'];
 
 angular.module('myApp')
     .controller('MessageCtrl', MessageCtrl);
