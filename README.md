@@ -10,13 +10,13 @@ If you haven't yet, install Ruby and Bundler.
 
 Then, run the following in your command line:
 
-git clone https://github.com/joelim01/angular-messages
-cd angular-messages
-bundle install
-install postgres and create a new db user named angular-messages
-install elasticsearch
-rails db:create
-rails db:migrate
+git clone https://github.com/joelim01/angular-messages  
+cd angular-messages  
+bundle install  
+install postgres and create a new db user named angular-messages  
+install elasticsearch  
+rails db:create  
+rails db:migrate  
 bower install
 
 Then, run rails s to start up a local server and view the app at localhost:3000 in your browser.
