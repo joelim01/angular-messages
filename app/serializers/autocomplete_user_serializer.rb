@@ -1,4 +1,3 @@
 class AutocompleteUserSerializer < ActiveModel::Serializer
-  attribute :username, key: :text
-
+  attributes (:id, :username)
 end
