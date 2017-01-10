@@ -1,27 +1,37 @@
-var datepickerService = function() {
+function DatepickerService() {
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
-  this.dates = {
-    dt:"",
-    dt2:""
-  }
+    var DPS = this;
 
-  this.getDates = function () {
-        return this.dates;
+    DPS.dates = {
+        dt: tomorrow,
+        dt2: tomorrow
     }
 
-  this.setDate = function(newDate) {
-        Object.assign(this.dates, newDate)
-        return this.dates;
+    DPS.resetDates = function() {
+      DPS.dates.dt = tomorrow;
+      DPS.dates.dt2 = tomorrow;
+      return DPS.dates
     }
 
-  this.setDates = function(newDates) {
-      newDates.forEach(function(element) {
-        this.setDate(element);
-      })
-      return this.dates;
+    DPS.getDates = function() {
+        return DPS.dates;
+    }
+
+    DPS.setDate = function(newDate) {
+        Object.assign(DPS.dates, newDate)
+        return DPS.dates;
+    }
+
+    DPS.setDates = function(newDates) {
+        newDates.forEach(function(element) {
+            DPS.setDate(element);
+        })
+        return DPS.dates;
     }
 }
 
 angular
-  .module('myApp')
-  .service('datepickerService', datepickerService)
+    .module('myApp')
+    .service('DatepickerService', DatepickerService)

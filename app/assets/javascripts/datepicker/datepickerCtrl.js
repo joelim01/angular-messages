@@ -1,101 +1,55 @@
-var DatepickerCtrl = function($rootScope, $scope, Auth, datepickerService) {
+var DatepickerCtrl = function($scope, Auth, DatepickerService) {
+
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var afterTomorrow = new Date();
+  afterTomorrow.setDate(tomorrow.getDate() + 1);
+  var dt2min = tomorrow;
 
   $scope.today = function() {
-      $scope.dt = new Date();
-      $scope.dt2 = new Date();
-    };
+      $scope.dates = DatepickerService.dates;
+  };
 
-    $scope.today();
+  $scope.today();
 
-    $scope.clear = function() {
-      $scope.dt = null;
-      $scope.dt2 = null;
-    };
+  $scope.clear = function() {
+    $scope.dates = DatepickerService.resetDates();
+  };
 
-    $scope.$watch('dt', function() {
-      var newDate = {dt: $scope.dt}
-      datepickerService.setDate(newDate)
-    })
+  $scope.dateOptions1 = {
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: tomorrow,
+    startingDay: 1
+  };
 
-    $scope.$watch('dt2', function() {
-      var newDate = {dt2: $scope.dt2}
-      datepickerService.setDate(newDate)
-    })
+  $scope.dateOptions2 = {
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: dt2min,
+    startingDay: 1
+  };
 
-    $scope.inlineOptions = {
-      customClass: getDayClass,
-      minDate: new Date(),
-      showWeeks: true
-    };
+  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
 
-    $scope.dateOptions = {
-      formatYear: 'yy',
-      maxDate: new Date(2020, 5, 22),
-      minDate: new Date(),
-      startingDay: 1
-    };
-
-    $scope.toggleMin = function() {
-      $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-      $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-    };
-
-    $scope.toggleMin();
-
-    $scope.open1 = function() {
-      $scope.popup1.opened = true;
-    };
-
-    $scope.open2 = function() {
-      $scope.popup2.opened = true;
-    };
-
-    $scope.setDate = function(year, month, day) {
-      $scope.dt = new Date(year, month, day);
-      $scope.dt2 = new Date(year, month, day);
-    };
+  $scope.open2 = function() {
+    $scope.popup2.opened = true;
+    $scope.dates.dt2 = $scope.dates.dt
+    $scope.dateOptions2.minDate = $scope.dt
+  };
 
     $scope.popup1 = {
-      opened: false
-    };
+    opened: false
+  };
 
-    $scope.popup2 = {
-      opened: false
-    };
-
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var afterTomorrow = new Date();
-    afterTomorrow.setDate(tomorrow.getDate() + 1);
-    $scope.events = [
-      {
-        date: tomorrow,
-        status: 'full'
-      },
-      {
-        date: afterTomorrow,
-        status: 'partially'
-      }
-    ];
-
-    function getDayClass(data) {
-      var date = data.date,
-        mode = data.mode;
-      if (mode === 'day') {
-        var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-        for (var i = 0; i < $scope.events.length; i++) {
-          var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-          if (dayToCheck === currentDay) {
-            return $scope.events[i].status;
-          }
-        }
-      }
-    }
+  $scope.popup2 = {
+    opened: false
+  };
 }
 
-DatepickerCtrl.$inject = ['$rootScope', '$scope', 'Auth', 'datepickerService'];
+DatepickerCtrl.$inject = ['$scope', 'Auth', 'DatepickerService'];
 
 angular.module('myApp')
     .controller('DatepickerCtrl', DatepickerCtrl)
