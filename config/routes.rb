@@ -6,11 +6,9 @@ Rails.application.routes.draw do
 
   scope 'api' do
     get 'user/autocomplete', to: 'user#autocomplete'
+    get 'messages/public', to: 'messages#public'
     delete 'message_recipients/:id', to: 'message_recipients#destroy'
-    resources :messages, only: [:index, :show]
-    resources :user, only: [] do
-      resources :messages, only: [:index, :create, :update, :destroy]
-    end
+    resources :messages, only: [:index, :show, :create, :update, :destroy]
   end
 
   get '*path', to: 'application#angular'
