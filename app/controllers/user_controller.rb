@@ -10,7 +10,7 @@ class UserController < ActionController::Base
       load: false,
       misspellings: {below: 5},
       order: {:username => "asc"}
-    }).collect { |obj| {:text => obj.username} }
+    }).collect { |obj| {id: obj.id, username: obj.username} }
     render json: users
   end
 
