@@ -1,7 +1,7 @@
 function MessageFormService() {
   var MFS = this;
 
-  MFS.validateDates = function(form, message) {
+  MFS.validateForm = function(form, message) {
     var valid = true;
     if (message.dt > message.dt2) {
       form.$error.datePeriodError = true;
@@ -11,13 +11,11 @@ function MessageFormService() {
       form.$error.dateStartError = true;
       valid = false;
     }
+    if (message.content == '') {
+      form.$error.contentError = true;
+      valid = false;
+    }
     return valid;
-  }
-
-  MFS.resetForm = function(form) {
-    debugger
-    form.$setUntouched();
-    form.$setPristine();
   }
 
 }
