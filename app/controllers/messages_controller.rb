@@ -1,36 +1,38 @@
-class MessagesController < ActionController::Base
-  require 'pry'
+class MessagesController < ApplicationController
   include ScheduleSending
   protect_from_forgery with: :exception
-  before_filter :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, except: [:public]
   serialization_scope :current_user
 
   def index
-    if !params[:user_id]
-      messages = Message.all
-      render json: messages
-    else
-      messages = Message.joins(:message_recipients).joins(:message_sender).where("sender_id = :sender or recipient_id= :recipient", {sender: params[:user_id], recipient: params[:user_id]}).distinct
-      render json: messages
+    # page, per_page, location
+    if params[:location] == "inbox"
+      messages = current_user.received_messages.order(sent_on: :desc).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
+      render json: messages, root: 'data', meta: pagination_dict(messages), adapter: 'json'
+    elsif params[:location] == "outbox"
+      messages = current_user.sent_messages.where(sent_on: nil).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
+      render json: messages, root: 'data', meta: pagination_dict(messages), adapter: 'json'
+    elsif params[:location] == "sent"
+      messages = current_user.sent_messages.where.not(sent_on: nil).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
+      render json: messages, root: 'data', meta: pagination_dict(messages), adapter: 'json'
     end
   end
-
 
   def show
     message = Message.find(params[:id])
     render json: message
   end
 
+  def public
+    messages = Message.all.where(private: false).order(sent_on: :desc).distinct.limit(50)
+    render json: messages
+  end
+
+
   def create
     message = Message.new(message_params)
     message.sender = current_user
     message.recipients << current_user if params[:self]
-    formattedRecipients = params[:message][:to].map(&:values).flatten
-    if formattedRecipients.respond_to?(:each)
-      formattedRecipients.each { |r| message.recipients << User.where(["username = ?", r]) }
-    else
-      message.recipients << User.where(["username = ?", formattedRecipients])
-    end
     message.scheduled_send_date = ScheduleSending.call(params[:message][:dt], params[:message][:dt2])
     if message.save
       render json: message
@@ -41,28 +43,9 @@ class MessagesController < ActionController::Base
 
   def update
     message = Message.find(params[:id])
-    if params[:message][:message_recipients]
-      mr = params[:message][:message_recipients][0]
-      MessageRecipient.find(mr[:id]).update(read: mr[:read])
-    end
-    if message.update(message_params)
-      if params[:message][:to]
-        message.recipients = []
-        formattedRecipients = params[:message][:to].map(&:values).flatten
-      end
-      if formattedRecipients.respond_to?(:each)
-        formattedRecipients.each { |r| message.recipients << User.where(["username = ?", r]) }
-      else
-        message.recipients << User.where(["username = ?", formattedRecipients])
-      end
-      if (params[:date_change])
-        message.scheduled_send_date = ScheduleSending.call(params[:message][:dt], params[:message][:dt2])
-      end
-      if message.save
-        render json: message
-      else
-        render json: {errors: message.errors.full_messages}, status: :unprocessable_entity
-      end
+    message.update(message_params)
+    if message.save
+      render json: message
     else
       render json: {errors: message.errors.full_messages}, status: :unprocessable_entity
     end
@@ -80,7 +63,19 @@ class MessagesController < ActionController::Base
    :send_as_group,
    :content,
    :private,
-   :subject)
+   :subject,
+   recipients_attributes: [:username, :id, :email],
+   message_recipients_attributes: [:id, :read])
+  end
+
+  def pagination_dict(object)
+    {
+      current_page: object.current_page,
+      next_page: object.next_page,
+      prev_page: object.previous_page, # use object.previous_page when using will_paginate
+      total_pages: object.total_pages,
+      total_entries: object.total_entries
+    }
   end
 
 end
