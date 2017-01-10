@@ -2,17 +2,21 @@ function MessageService($rootScope, $http, Auth, Flash) {
   var MS = this;
 
   MS.newMessage = {
-      to: [],
-      self: false,
-      private: false,
-      send_as_group: false,
       subject: "",
-      content: ""
-  };
+      content: "",
+      dt: "",
+      dt2: "",
+      private: false,
+      self: false,
+      recipients: []
+  }
 
-  MS.messages = [];
+  MS.messages = {};
+  MS.publicMessages = [];
+  MS.inboxMessages = {};
 
-  var submitRequest = function(message, user, path, action) {
+
+  var submitRequest = function(message, path, action) {
     var jsonMessage = { "message": message }
     if (action == 'post'){
         return $http.post(path, jsonMessage)
@@ -36,29 +40,31 @@ function MessageService($rootScope, $http, Auth, Flash) {
     }
   }
 
-  MS.create = function(message, user) {
-    var path = "/api/user/" + user.id + "/messages"
-    return submitRequest(message, user, path, "post")
+  MS.createMessage = function(message) {
+    var path = "/api/messages"
+    return submitRequest(message, path, "post")
   }
 
-  MS.update = function(message, user) {
-    var path = "/api/user/" + user.id + "/messages/" + message.id
-    return submitRequest(message, user, path, "patch")
+  MS.updateMessage = function(message) {
+    var path = "/api/messages/" + message.id
+    message.recipients_attributes = message.recipients
+    message.message_recipients_attributes = message.message_recipients
+    return submitRequest(message, path, "patch")
   }
 
-  MS.destroy = function(message, user, location) {
+  MS.destroyMessage = function(message, location) {
     if (location === "inbox") {
       var path = "/api/message_recipients/" + message.message_recipients[0].id
     } else if (location === "outbox") {
-      var path = "/api/user/" + user.id + "/messages/" + message.id
+      var path = "/api/messages/" + message.id
     }
-    return submitRequest(message, user, path, "destroy")
+    return submitRequest(message, path, "destroy")
   }
 
   MS.read = function(message) {
     if (!message.message_recipients[0].read) {
       message.message_recipients[0].read = true
-      MS.update(message, $rootScope.currentUser);
+      MS.updateMessage(message);
     }
   }
 
@@ -66,14 +72,30 @@ function MessageService($rootScope, $http, Auth, Flash) {
     return $http.get('/api/user/autocomplete?query=' + query)
   }
 
-  MS.getMessages = function() {
-    return Auth.currentUser().then(function(user) {
-      var path = '/api/user/' + user.id + '/messages'
-      return $http.get(path).then(function(response){
-        angular.copy(response.data, MS.messages);
+  MS.getMessages = function(page, loc) {
+    return Auth.currentUser().then(function() {
+      var path = '/api/messages?page=' + page + "&location=" + loc
+      return $http.get(path).then(function(response) {
+        if (loc == "inbox") {
+            MS.messages.inboxMessages = response.data
+        } else if (loc == "outbox") {
+            MS.messages.outboxMessages = response.data
+        } else if (loc == "sent") {
+            MS.messages.sentMessages = response.data
+        }
+        return response;
       })
     })
   }
+
+  MS.getPublicMessages = function() {
+    var path = '/api/messages/public'
+    return $http.get(path).then(function(response){
+      angular.copy(response.data, MS.publicMessages);
+      return response;
+    })
+  }
+
 }
 
 MessageService.$inject = ['$rootScope', '$http', 'Auth', 'Flash'];
