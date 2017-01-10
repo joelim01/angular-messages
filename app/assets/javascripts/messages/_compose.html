@@ -4,7 +4,7 @@
     show-close="true"
 ></flash-message>
 
-  <form name="composeEditForm" ng-submit="MC.submitMessage(composeEditForm)">
+  <form name="composeEditForm" ng-submit="MC.createMessage(composeEditForm)">
 
     <label class="checkbox-inline">
       <input type="checkbox" value="" ng-model="MC.message.private" name="public">Public?
@@ -13,7 +13,7 @@
     <div class="row">
       <div class="col-md-12">
         <label>To:</label>
-          <tags-input name="recipients" add-from-autocomplete-only="true" min-tags="1" ng-model="MC.message.to" add-on-paste="true">
+          <tags-input name="recipients" key-property="id" display-property="username" add-from-autocomplete-only="true" min-tags="1" ng-model="MC.message.recipients" add-on-paste="true">
             <auto-complete source="MC.getUsers($query)"></auto-complete>
           </tags-input>
         </div>
@@ -31,7 +31,7 @@
   <div class="row" ng-controller="DatepickerCtrl">
     <div class="col-md-6">
       <p class="input-group">
-        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dates.dt" is-open="popup1.opened" datepicker-options="dateOptions1" ng-required="true" close-text="Close" />
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
         </span>
@@ -40,7 +40,7 @@
 
     <div class="col-md-6">
       <p class="input-group">
-        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dt2" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dates.dt2" is-open="popup2.opened" datepicker-options="dateOptions2" ng-required="true" close-text="Close" />
         <span class="input-group-btn">
           <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
         </span>
@@ -59,6 +59,7 @@
       <input class="form-control" type="text" name="subject" ng-model="MC.message.subject" value=""></input><br>
     <label>Message</label>
       <textarea class="form-control" rows="3" name="message" ng-model="MC.message.content" value=""></textarea><br>
+
     <input class="form-control" type="submit">
   </form>
 

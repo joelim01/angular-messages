@@ -1,5 +1,8 @@
+<div ng-controller="PaginationCtrl as PC" class="">
+
+
 <uib-accordion close-others="true">
-  <div uib-accordion-group class="panel-default" is-open="status.isMessageOpen" template-url="assets/components/outbox.accordion.html" dir-paginate="message in MC.messages | filter: { sent_on: null } | filter: { sender: { id: currentUser.id } }:true | itemsPerPage:10">
+  <div uib-accordion-group class="panel-default" is-open="status.isMessageOpen" template-url="assets/components/outbox.accordion.html" total-items="MC.messages.data.outboxMessages.meta.total_entries" dir-paginate="message in MC.messages.data.outboxMessages.data | itemsPerPage: PC.pageSize">
     <uib-accordion-heading>
       {{message.subject}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isMessageOpen, 'glyphicon-chevron-right': !status.isMessageOpen}"></i>
     </uib-accordion-heading>
@@ -17,6 +20,7 @@
 
 <div class="row">
   <div class="text-center">
-    <dir-pagination-controls class="clearfix" boundary-links="true"></dir-pagination-controls>
+    <dir-pagination-controls class="clearfix" on-page-change="pageChanged(newPageNumber, 'outbox')" boundary-links="true"></dir-pagination-controls>
   </div>
+</div>
 </div>

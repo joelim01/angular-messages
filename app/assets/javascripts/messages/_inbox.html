@@ -1,13 +1,14 @@
 
-<div class="">
+<div ng-controller="PaginationCtrl as PC" class="">
   <label class="checkbox-inline" style="padding-bottom:10px">
     <input type="checkbox" value="" ng-model="MC.filterUnread" name="">Unread only?
   </label>
-
   <uib-accordion close-others="true">
-    <div uib-accordion-group ng-click="MC.read(message)" class="panel-default" is-open="status.isMessageOpen" template-url="assets/components/inbox.accordion.html" dir-paginate="message in MC.messages | filter: { recipients: { id: currentUser.id } }:true | filter: MC.unread() | filter: { sent_on: '' } | itemsPerPage: 10">
+    <div uib-accordion-group ng-click="MC.read(message)"
+      class="panel-default" is-open="status.isMessageOpen" template-url="assets/components/inbox.accordion.html"
+      total-items="MC.messages.data.inboxMessages.meta.total_entries" dir-paginate="message in MC.messages.data.inboxMessages.data | filter: MC.unread() | itemsPerPage: PC.pageSize">
       <uib-accordion-heading>
-        {{message.sender.username}} - {{message.subject}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isMessageOpen, 'glyphicon-chevron-right': !status.isMessageOpen}"></i><i class="pull-right glyphicon" ng-class="{'glyphicon-ok': message.message_recipients[0].read, 'glyphicon-envelope': !message.message_recipients[0].read}"></i>
+        {{message.id}}{{message.sender.username}} - {{message.subject}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isMessageOpen, 'glyphicon-chevron-right': !status.isMessageOpen}"></i><i class="pull-right glyphicon" ng-class="{'glyphicon-ok': message.message_recipients[0].read, 'glyphicon-envelope': !message.message_recipients[0].read}"></i>
       </uib-accordion-heading>
         {{message.content}}
       <br>
@@ -19,7 +20,7 @@
 
   <div class="row">
     <div class="text-center">
-      <dir-pagination-controls class="clearfix" boundary-links="true"></dir-pagination-controls>
+      <dir-pagination-controls class="clearfix" on-page-change="pageChanged(newPageNumber, 'inbox')" boundary-links="true"></dir-pagination-controls>
     </div>
   </div>
 </div>
