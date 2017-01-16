@@ -7,10 +7,10 @@ class MessagesController < ApplicationController
   def index
     # page, per_page, location
     if params[:location] == "inbox"
-      messages = current_user.received_messages.order(sent_on: :desc).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
+      messages = current_user.received_messages.where.not(sent_on: nil).order(sent_on: :desc).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
       render json: messages, root: 'data', meta: pagination_dict(messages), adapter: 'json'
     elsif params[:location] == "outbox"
-      messages = current_user.sent_messages.where(sent_on: nil).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
+      messages = current_user.sent_messages.where(sent_on: nil).order(scheduled_send_date: :desc).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
       render json: messages, root: 'data', meta: pagination_dict(messages), adapter: 'json'
     elsif params[:location] == "sent"
       messages = current_user.sent_messages.where.not(sent_on: nil).paginate(page: params[:page], per_page: (params[:per_page] || 15) )
@@ -42,7 +42,7 @@ class MessagesController < ApplicationController
   end
 
   def update
-    message = Message.find(params[:id])
+    message = Message.find(params[:message][:data][:id])
     message.update(message_params)
     if message.save
       render json: message
@@ -58,7 +58,7 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-   params.require(:message).permit(
+   params.require(:message).require(:data).permit(
    :id,
    :send_as_group,
    :content,
