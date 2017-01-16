@@ -18,7 +18,6 @@
   background-color: #4D7E8F;
 }
 
-
 .h1 {
   font-family: 'Mitr', sans-serif!important;
 }
@@ -70,6 +69,14 @@ input[type=submit] {
   box-shadow: inset 0px 0px 0px 1px #264259;
 }
 
+.panel-heading {
+  padding: 5px;
+}
+
+.glyphicon {
+  padding: 0px 8px;
+}
+
 .nav-pills li a.sent {
   background-color: #619191;
 }
@@ -95,7 +102,7 @@ input[type=submit] {
   border: 1px solid #264259;
 }
 
-.panel-inbox.panel-heading {
+.panel-inbox {
   background-color: #46788c;
   color: #dbedfc;
   box-shadow: inset 0px 0px 0px 1px #173f50;
@@ -108,7 +115,7 @@ input[type=submit] {
   border: none;
 }
 
-.panel-outbox.panel-heading {
+.panel-outbox {
   background-color: #598d96;
   color: #dbedfc;
   box-shadow: inset 0px 0px 0px 1px #264259;
@@ -121,7 +128,7 @@ input[type=submit] {
   border: none;
 }
 
-.panel-sent.panel-heading {
+.panel-sent {
   background-color: #6f9e9e;
   color: #dbedfc;
   box-shadow: inset 0px 0px 0px 1px #264259;
