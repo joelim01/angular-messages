@@ -25,7 +25,6 @@ gem 'angular-rails-templates'
 gem 'angular_rails_csrf'
 gem 'rb-readline'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'searchkick'
 gem 'will_paginate', '~> 3.1.0'
 gem "bower-rails", "~> 0.11.0"
 source "https://rails-assets.org" do

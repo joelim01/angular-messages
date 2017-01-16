@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <label>To:</label>
-                <tags-input name="recipients" key-property="id" display-property="username" add-from-autocomplete-only="true" min-tags="1" ng-model="MC.message.data.recipients" add-on-paste="true">
+                <tags-input name="recipients" placeholder="Username" key-property="id" display-property="username" add-from-autocomplete-only="true" min-tags="1" ng-model-options="{ debounce: 200 }" ng-model="MC.message.data.recipients" add-on-paste="true">
                     <auto-complete source="MC.getUsers($query)"></auto-complete>
                 </tags-input>
             </div>

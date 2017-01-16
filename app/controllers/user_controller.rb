@@ -3,16 +3,10 @@ class UserController < ActionController::Base
   before_action :authenticate_user!
 
   def autocomplete
-    users = User.search(params[:query], {
-      fields: ["username"],
-      match: :word_start,
-      limit: 10,
-      load: false,
-      misspellings: {below: 5},
-      order: {:username => "asc"}
-    }).collect { |obj| {id: obj.id, username: obj.username} }
+    query = params[:query] || nil
+    users = []
+    users = User.where('username LIKE ?', "%#{query}%").limit(10) if query
     render json: users
   end
-
 
 end
