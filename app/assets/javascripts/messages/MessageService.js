@@ -60,8 +60,8 @@ function MessageService($rootScope, $http, Auth, Flash) {
 
     MS.updateMessage = function(message) {
         var path = "/api/messages/" + message.id
-        message.recipients_attributes = message.recipients
-        message.message_recipients_attributes = message.message_recipients
+        message.data.recipients_attributes = message.data.recipients
+        message.data.message_recipients_attributes = message.data.message_recipients
         return submitRequest(message, path, "patch")
     }
 
@@ -75,8 +75,8 @@ function MessageService($rootScope, $http, Auth, Flash) {
     }
 
     MS.read = function(message) {
-        if (!message.message_recipients[0].read) {
-            message.message_recipients[0].read = true
+        if (!message.data.message_recipients[0].read) {
+            message.data.message_recipients[0].read = true
             MS.updateMessage(message);
         }
     }

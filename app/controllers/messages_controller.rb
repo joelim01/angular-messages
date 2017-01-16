@@ -30,11 +30,12 @@ class MessagesController < ApplicationController
 
 
   def create
-    message = Message.new(message_params)
+    message = Message.create(message_params)
     message.sender = current_user
     message.recipients << current_user if params[:self]
+    params[:message][:data][:recipients].each { |r| message.recipients << User.find(r[:id]) }
     message.scheduled_send_date = ScheduleSending.call(params[:message][:dt], params[:message][:dt2])
-    if message.save
+    if message.valid?
       render json: message
     else
       render json: {errors: message.errors.full_messages}, status: :unprocessable_entity
