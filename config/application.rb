@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Messages
   class Application < Rails::Application
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     # via https://gist.github.com/afeld/5704079
 
     # We don't want the default of everything that isn't js or css, because it pulls too many things in
