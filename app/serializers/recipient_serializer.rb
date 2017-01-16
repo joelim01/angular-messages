@@ -1,3 +1,3 @@
 class RecipientSerializer < ActiveModel::Serializer
-  attributes(:id, :username, :email)
+  attributes :id, :username, :email
 end

@@ -1,3 +1,3 @@
 class MessageRecipientSerializer < ActiveModel::Serializer
-  attributes(:id, :read)
+  attributes :id, :read
 end
