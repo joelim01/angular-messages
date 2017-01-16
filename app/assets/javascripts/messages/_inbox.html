@@ -6,7 +6,7 @@
   <uib-accordion close-others="true">
     <div uib-accordion-group ng-click="MC.read(message)"
       class="panel-default" is-open="status.isMessageOpen" template-url="assets/components/inbox.accordion.html"
-      total-items="MC.messages.data.inboxMessages.meta.total_entries" dir-paginate="message in MC.messages.data.inboxMessages.data | filter: MC.unread() | itemsPerPage: PC.pageSize">
+      total-items="MC.messages.inboxMessages.meta.total_entries" dir-paginate="message in MC.messages.inboxMessages.data | filter: MC.unread() | itemsPerPage: PC.pageSize">
       <uib-accordion-heading>
         {{message.id}}{{message.sender.username}} - {{message.subject}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isMessageOpen, 'glyphicon-chevron-right': !status.isMessageOpen}"></i><i class="pull-right glyphicon" ng-class="{'glyphicon-ok': message.message_recipients[0].read, 'glyphicon-envelope': !message.message_recipients[0].read}"></i>
       </uib-accordion-heading>
