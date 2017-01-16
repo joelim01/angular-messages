@@ -10,8 +10,8 @@
         var pageSize = 15;
 
         return {
-            pages,
-            pageSize,
+            pages: pages,
+            pageSize: pageSize,
         }
     }
 
