@@ -28,7 +28,9 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'searchkick'
 gem 'will_paginate', '~> 3.1.0'
 gem "bower-rails", "~> 0.11.0"
-gem 'rails_12factor', group: :production
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
