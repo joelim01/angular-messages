@@ -1,0 +1,20 @@
+<div ng-cloak class="collapse navbar-collapse pull-right">
+
+    <ul class="nav navbar-nav">
+        <li ng-hide="currentUser != null"><a ui-sref="home">Home</a></li>
+        <li ng-hide="currentUser != null"><a ui-sref="login">Log In</a></li>
+        <li ng-hide="currentUser != null"><a ui-sref="register">Register</a></li>
+        <!-- Simple dropdown -->
+        <li ng-hide="currentUser == null" uib-dropdown >
+          <a id="single-button" uib-dropdown-toggle ng-disabled="disabled">
+            {{ currentUser.username }} <span class="caret"></span>
+          </a>
+          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a ui-sref="messages.inbox">Inbox</a></li>
+            <li role="menuitem"><a ui-sref="messages">{{currentUser.email}}</a></li>
+            <li class="divider"></li>
+           <li role="menuitem"><a href="" ng-click="logout()">Log Out</a></li>
+          </ul>
+        </li>
+    </ul>
+</div>

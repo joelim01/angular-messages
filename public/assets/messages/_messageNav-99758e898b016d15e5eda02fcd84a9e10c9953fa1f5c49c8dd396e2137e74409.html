@@ -1,0 +1,20 @@
+<div ng-controller="MessageCtrl as MC">
+
+  <ul class="nav nav-pills">
+    <li ui-sref-active="active" class="item">
+      <a class="compose" ui-sref="messages.compose">Compose</a>
+    </li>
+    <li ui-sref-active="active" class="item">
+      <a class="inbox" ui-sref="messages.inbox">Inbox</a>
+    </li>
+    <li ui-sref-active="active" class="item">
+      <a class="outbox" ui-sref="messages.outbox">Outbox</a>
+    </li>
+    <li ui-sref-active="active" class="item sent">
+      <a class="sent" ui-sref="messages.sent">Sent</a>
+    </li>
+  </ul>
+  <div style="padding-top:10px">
+    <ui-view/>
+  </div>
+</div>
