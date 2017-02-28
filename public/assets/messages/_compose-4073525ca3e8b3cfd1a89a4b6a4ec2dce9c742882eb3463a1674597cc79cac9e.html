@@ -1,0 +1,65 @@
+<div>
+    <flash-message duration="5000" show-close="true"></flash-message>
+
+
+    <form name="composeEditForm" ng-submit="MC.createOrUpdateMessage(MC.message, composeEditForm)">
+
+
+        <label class="checkbox-inline">
+      <input type="checkbox" value="" ng-model="MC.message.data.private" name="public">Public?
+    </label>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label>To:</label>
+                <tags-input name="recipients" placeholder="Username" key-property="id" display-property="username" add-from-autocomplete-only="true" min-tags="1" ng-model-options="{ debounce: 200 }" ng-model="MC.message.data.recipients" add-on-paste="true">
+                    <auto-complete source="MC.getUsers($query)"></auto-complete>
+                </tags-input>
+            </div>
+        </div>
+
+
+        <div ng-messages="composeEditForm.recipients.$error" ng-show="composeEditForm.recipients.$touched">
+            <div ng-message="minTags" class="alert alert-danger">You need to provide at least one recipient</div>
+        </div>
+
+        <!-- This is the date picker below -->
+        <div ng-if="!MC.message.data.id">
+        <label>Deliver Between:</label>
+            <div class="row" ng-controller="DatepickerCtrl">
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dates.dt" is-open="popup1.opened" datepicker-options="dateOptions1" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="shortDate" ng-model="dates.dt2" is-open="popup2.opened" datepicker-options="dateOptions2" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div ng-messages="composeEditForm.$error" multiple>
+            <div ng-message="datePeriodError" class="alert alert-danger">The beginning of your sending period must be before the end.</div>
+            <div ng-message="dateStartError" class="alert alert-danger">The date cannot be before today.</div>
+        </div>
+
+        <!-- This is the date picker above -->
+
+        <label>Subject</label>
+        <input class="form-control" type="text" name="subject" ng-model="MC.message.data.subject" value=""></input><br>
+        <label>Message</label>
+        <textarea class="form-control" rows="3" name="message" ng-model="MC.message.data.content" value=""></textarea><br>
+
+        <input class="form-control" type="submit">
+    </form>
+
+</div>
